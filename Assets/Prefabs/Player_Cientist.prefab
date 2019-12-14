@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -72,7 +72,7 @@ MonoBehaviour:
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 1657529033}
   - component: {fileID: 1657529036}
   - component: {fileID: 1657529035}
-  - component: {fileID: 1657529034}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -159,23 +158,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &1657529034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657529032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &877192636041629231
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +170,7 @@ GameObject:
   - component: {fileID: 877192636041629229}
   - component: {fileID: 877192636041629230}
   - component: {fileID: 2520463603271310536}
+  - component: {fileID: 7514718788339852905}
   m_Layer: 0
   m_Name: Player_Cientist
   m_TagString: Untagged
@@ -293,3 +276,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 1547239162}
+  bulletPrefab: {fileID: 8973895018598193542, guid: 9ec5a07af4b9b4749bb9197cdd71f99f,
+    type: 3}
+  target: {fileID: 0}
+  bulletSpeed: 300
+  bulletDelay: 2
+  maxLife: 100
+  curLife: 100
+--- !u!58 &7514718788339852905
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877192636041629231}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.28

@@ -36,13 +36,13 @@ public class ConfigurationManager : MonoBehaviour
     public void SaveChanges()
     {
         if (channelInput.text != "")
-            PlayerPrefs.SetString("Twitch_MsgChannel", channelInput.text);
+            PlayerPrefs.SetString("Twitch_MsgChannel", channelInput.text.ToLower());
 
         if (tokenInput.text != "")
-            PlayerPrefs.SetString("Twitch_OAuthToken", tokenInput.text);
+            PlayerPrefs.SetString("Twitch_OAuthToken", tokenInput.text.ToLower());
 
         if (userInput.text != "")
-            PlayerPrefs.SetString("Twitch_Username", userInput.text);
+            PlayerPrefs.SetString("Twitch_Username", userInput.text.ToLower());
 
         int buildScene = SceneManager.GetActiveScene().buildIndex;
 

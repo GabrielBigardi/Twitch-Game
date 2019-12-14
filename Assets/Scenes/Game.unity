@@ -727,8 +727,8 @@ MonoBehaviour:
   currentViewersObjects: []
   viewersToRemoveString: []
   viewersToRemoveGameObject: []
-  minSpawnPos: {x: -7.16, y: -0.5}
-  maxSpawnPos: {x: 7.16, y: 4.27}
+  minSpawnPos: {x: -6.91, y: -0.25}
+  maxSpawnPos: {x: 6.91, y: 4.02}
 --- !u!4 &404392801
 Transform:
   m_ObjectHideFlags: 0
@@ -1334,6 +1334,7 @@ GameObject:
   - component: {fileID: 1428046500}
   - component: {fileID: 1428046499}
   - component: {fileID: 1428046498}
+  - component: {fileID: 1428046501}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1406,6 +1407,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1428046501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428046497}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f7bce24dbc2d4146a009b4e38e53d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TexturePixelsPerWorldUnit: 16
 --- !u!1 &1533182347
 GameObject:
   m_ObjectHideFlags: 0

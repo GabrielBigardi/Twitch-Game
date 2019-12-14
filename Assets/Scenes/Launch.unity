@@ -555,7 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verificaText: {fileID: 690679565}
   aguardeText: {fileID: 63931731}
-  baseURL: http://www.1help.tk/twitch-game/
+  baseURL: http://1help.tk/twitch-game/
 --- !u!4 &1814228473
 Transform:
   m_ObjectHideFlags: 0

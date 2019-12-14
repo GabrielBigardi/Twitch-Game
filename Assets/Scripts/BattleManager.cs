@@ -46,7 +46,7 @@ public class BattleManager : MonoBehaviour
     public void NewBattle()
     {
         Manager.Instance.DeleteViewersAll();
-        print("Uma nova batalha foi iniciada, aguardando jogadores");
+        //print("Uma nova batalha foi iniciada, aguardando jogadores");
         currentBattleState = BattleState.Waiting;
         TwitchChat.Instance.SendChat("Atenção todo mundo, uma nova batalha foi iniciada. Para entrar digite !play");
 
@@ -57,7 +57,7 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
-        print("Batalha começando, iniciada manualmente ou atingiu o número de jogadores");
+        //print("Batalha começando, iniciada manualmente ou atingiu o número de jogadores");
         currentBattleState = BattleState.Started;
         TwitchChat.Instance.SendChat("A batalha foi iniciada, boa sorte a todos !");
 
@@ -68,7 +68,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndBattle()
     {
-        print("Batalha Finalizada");
+        //print("Batalha Finalizada");
         currentBattleState = BattleState.Finished;
         TwitchChat.Instance.SendChat("A batalha foi finalizada, parabéns ao vencedor !");
 

@@ -73,7 +73,7 @@ public class TwitchChat : MonoBehaviour
 
     private void ReadChat()
     {
-        if(twitchClient.Available > 0)
+        if (twitchClient.Available > 0)
         {
             var message = reader.ReadLine();
 
@@ -96,20 +96,20 @@ public class TwitchChat : MonoBehaviour
                 string str = message.Substring(0, 1);
 
 
-                if (chatName != "streamlabs" && chatName != "moobot" && chatName != "nightbot")
-                {
+                //if (chatName != "streamlabs" && chatName != "moobot" && chatName != "nightbot")
+                //{
                     //int viewerIndex = listaViewersString.IndexOf(chatName);
 
                     //Lhama viewerLhama = listaViewersObject[viewerIndex].GetComponent<Lhama>();
                     //viewerLhama.StartCoroutine(viewerLhama.ShowMessage(message, 2f));
-                }
+                //}
 
 
                 // ==================== COMANDOS ====================
                 if (str == "!")
                 {
                     string[] splitted = message.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries); // split espaço
-                    print(splitted[0]);
+                    //print(splitted[0]);
 
                     switch (splitted[0]) // switch name
                     {
@@ -118,7 +118,7 @@ public class TwitchChat : MonoBehaviour
                             {
                                 if (Manager.Instance.currentViewersNames.Contains(chatName))
                                 {
-                                    print("Já está em batalha");
+                                    //print("Já está em batalha");
                                     SendChat("@" + chatName + " você já está na batalha !");
                                     return;
                                 }
@@ -132,15 +132,59 @@ public class TwitchChat : MonoBehaviour
 
                             else if (BattleManager.Instance.currentBattleState == BattleManager.BattleState.Started)
                             {
-                                print(chatName + " tentou entrar na batalha já iniciada");
+                                //print(chatName + " tentou entrar na batalha já iniciada");
                                 SendChat("@" + chatName + " batalha já começou, seja mais rápido na próxima !");
                             }
 
                             else if (BattleManager.Instance.currentBattleState == BattleManager.BattleState.Finished)
                             {
-                                print(chatName + " tentou entrar na batalha mas ela não existe");
+                                //print(chatName + " tentou entrar na batalha mas ela não existe");
                                 SendChat("@" + chatName + " aguarde até o streamer começar uma nova batalha !");
                             }
+                            break;
+
+                        case "!parabens":
+                            SendChat("@" + chatName + "parabéns viu seu cocô");
+                            break;
+
+                        case "!target":
+
+                            var target = splitted[1].ToLower();
+                            target = target.Replace("@", "");
+
+                            if(BattleManager.Instance.currentBattleState != BattleManager.BattleState.Started)
+                            {
+                                SendChat("Pera lá ladrão, a batalha ainda num começou cmonBruh");
+                                return;
+                            }
+
+                            if (!Manager.Instance.currentViewersNames.Contains(chatName))
+                            {
+                                SendChat("Você num ta em batalha cmonBruh");
+                                return;
+                            }
+
+                            if (!Manager.Instance.currentViewersNames.Contains(target))
+                            {
+                                SendChat("O usuário num ta batalhando cmonBruh");
+                                return;
+                            }
+
+                            if(target == chatName)
+                            {
+                                SendChat("Sai daqui mazoquista cmonBruh");
+                                return;
+                            }
+
+
+                            //===== Função pra atacar os mano ======
+                            var chatNameGameObject = Manager.Instance.GetViewerGameObject(chatName);
+                            var targetGameObject = Manager.Instance.GetViewerGameObject(target);
+
+                            chatNameGameObject.GetComponent<Viewer>().Attack(targetGameObject.transform);
+                            //======================================
+
+                            SendChat("@" + chatName + " está focando em: " + target);
                             break;
 
                         default:
@@ -157,67 +201,6 @@ public class TwitchChat : MonoBehaviour
     {
         writer.WriteLine(":"+ username + "!"+ username + "@"+ username + ".tmi.twitch.tv PRIVMSG #"+ username + " :" + mensagem);
         writer.Flush();
-    }
-
-    public IEnumerator HTTPRequest()
-    {
-        UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get("http://tmi.twitch.tv/group/user/" + channelName + "/chatters");
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            var N = JSON.Parse(www.downloadHandler.text);
-            var chatters = N["chatters"];
-
-            streamerArray = chatters["broadcaster"];
-            modsArray = chatters["moderators"];
-            vipsArray = chatters["vips"];
-            viewersArray = chatters["viewers"];
-
-            currentStreamer = new List<string>();
-            currentMods = new List<string>();
-            currentVips = new List<string>();
-            currentViewers = new List<string>();
-
-            for (int i = 0; i < streamerArray.Count; i++)
-            {
-                if (!currentStreamer.Contains(streamerArray[i]))
-                {
-                    currentStreamer.Add(streamerArray[i]);
-                }
-            }
-
-            for (int i = 0; i < modsArray.Count; i++)
-            {
-                if (!currentMods.Contains(modsArray[i]))
-                {
-                    currentMods.Add(modsArray[i]);
-                }
-            }
-
-            for (int i = 0; i < vipsArray.Count; i++)
-            {
-                if (!currentVips.Contains(vipsArray[i]))
-                {
-                    currentVips.Add(vipsArray[i]);
-                }
-            }
-
-            for (int i = 0; i < viewersArray.Count; i++)
-            {
-                if (!currentViewers.Contains(viewersArray[i]))
-                {
-                    currentViewers.Add(viewersArray[i]);
-                }
-            }
-
-            Manager.Instance.CheckIfIsViewing();
-        }
-        
     }
 
     public void PrintAll()
