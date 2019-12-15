@@ -19,10 +19,10 @@ public class TwitchChat : MonoBehaviour
 
     string username, password, channelName;
 
-    public List<string> currentStreamer;
-    public List<string> currentMods;
-    public List<string> currentVips;
-    public List<string> currentViewers;
+    //public List<string> currentStreamer;
+    //public List<string> currentMods;
+    //public List<string> currentVips;
+    //public List<string> currentViewers;
 
     public JSONNode streamerArray;
     public JSONNode modsArray;

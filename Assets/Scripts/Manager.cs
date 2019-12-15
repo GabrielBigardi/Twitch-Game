@@ -137,7 +137,9 @@ public class Manager : MonoBehaviour
 
     public void DeleteAt(int index)
     {
-        Destroy(currentViewersObjects[index].gameObject);
+        if(currentViewersObjects[index] != null)
+            Destroy(currentViewersObjects[index].gameObject);
+
         currentViewersNames.RemoveAt(index);
         currentViewersObjects.RemoveAt(index);
     }

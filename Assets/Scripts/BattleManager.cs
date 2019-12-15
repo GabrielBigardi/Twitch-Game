@@ -70,7 +70,27 @@ public class BattleManager : MonoBehaviour
     {
         //print("Batalha Finalizada");
         currentBattleState = BattleState.Finished;
-        TwitchChat.Instance.SendChat("A batalha foi finalizada, parabéns ao vencedor !");
+
+        string strVencedores = "";
+
+        // ========= Função: pegar o nome do vencedor ===========
+        for (int i = 0; i < Manager.Instance.currentViewersNames.Count; i++)
+        {
+            //print("count: " + Manager.Instance.currentViewersNames.Count);
+
+            string nameVencedor = Manager.Instance.currentViewersNames[i];
+            //print("index: " + i);
+
+
+
+            if (i < (Manager.Instance.currentViewersNames.Count - 1))
+                strVencedores += ("@" + nameVencedor + ", ");
+            else
+                strVencedores += ("@" + nameVencedor + ". Parabéns !");
+        }
+        // =======================================================
+
+        TwitchChat.Instance.SendChat("A batalha foi finalizada, parabéns aos vencedores: " + strVencedores);
 
         novaButton.gameObject.SetActive(true);
         startButton.gameObject.SetActive(false);

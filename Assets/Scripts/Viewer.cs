@@ -25,7 +25,7 @@ public class Viewer : MonoBehaviour
     {
         if (col.tag == "Bullet")
         {
-            print("Atingido");
+            //print("Atingido");
             TakeDamage(50);
             Destroy(col.gameObject);
         }
@@ -36,7 +36,19 @@ public class Viewer : MonoBehaviour
         curLife -= damageToTake;
         if(curLife <= 0)
         {
-            print("E morreu");
+            int playerIndex = Manager.Instance.currentViewersNames.IndexOf(nameText.text);
+            int playersCount = Manager.Instance.currentViewersNames.Count;
+
+            //deleta da lista antes da checagem, caso contrario checagem não iniciará
+            Manager.Instance.currentViewersNames.RemoveAt(playerIndex);
+            Manager.Instance.currentViewersObjects.RemoveAt(playerIndex);
+
+            //checagem se acabou batalha
+            if ((playersCount - 1) <= 1)
+            {
+                BattleManager.Instance.EndBattle();
+            }
+
             Destroy(gameObject);
         }
     }
