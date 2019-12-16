@@ -772,10 +772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4c70c244a64d84e9da2100c4147c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStreamer: []
-  currentMods: []
-  currentVips: []
-  currentViewers: []
 --- !u!4 &513555679
 Transform:
   m_ObjectHideFlags: 0

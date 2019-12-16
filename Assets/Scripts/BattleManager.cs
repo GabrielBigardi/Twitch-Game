@@ -68,29 +68,38 @@ public class BattleManager : MonoBehaviour
 
     public void EndBattle()
     {
-        //print("Batalha Finalizada");
+        if (currentBattleState == BattleState.Finished)
+            return;
+
         currentBattleState = BattleState.Finished;
 
         string strVencedores = "";
 
-        // ========= Função: pegar o nome do vencedor ===========
-        for (int i = 0; i < Manager.Instance.currentViewersNames.Count; i++)
+        if(Manager.Instance.currentViewersNames.Count > 1)
         {
-            //print("count: " + Manager.Instance.currentViewersNames.Count);
+            // ========= Função: pegar o nome do vencedor ===========
+            for (int i = 0; i < Manager.Instance.currentViewersNames.Count; i++)
+            {
+                string nameVencedor = Manager.Instance.currentViewersNames[i];
 
-            string nameVencedor = Manager.Instance.currentViewersNames[i];
-            //print("index: " + i);
+                if (i < (Manager.Instance.currentViewersNames.Count - 1))
+                    strVencedores += ("@" + nameVencedor + ", ");
+                else
+                    strVencedores += ("@" + nameVencedor + ". Parabéns !");
+            }
+            // =======================================================
 
-
-
-            if (i < (Manager.Instance.currentViewersNames.Count - 1))
-                strVencedores += ("@" + nameVencedor + ", ");
-            else
-                strVencedores += ("@" + nameVencedor + ". Parabéns !");
+            TwitchChat.Instance.SendChat("A batalha foi finalizada, vencedores: " + strVencedores);
         }
-        // =======================================================
-
-        TwitchChat.Instance.SendChat("A batalha foi finalizada, parabéns aos vencedores: " + strVencedores);
+        else if (Manager.Instance.currentViewersNames.Count == 1)
+        {
+            TwitchChat.Instance.SendChat("A batalha foi finalizada, vencedor: " + Manager.Instance.currentViewersNames[0]);
+        }
+        else
+        {
+            TwitchChat.Instance.SendChat("A batalha foi finalizada, não houve vencedores !");
+        }
+        
 
         novaButton.gameObject.SetActive(true);
         startButton.gameObject.SetActive(false);

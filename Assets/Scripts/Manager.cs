@@ -82,6 +82,11 @@ public class Manager : MonoBehaviour
             //print("policia detectada");
             go = Instantiate(viewersPrefab[UnityEngine.Random.Range(0, viewersPrefab.Length)], new Vector2(UnityEngine.Random.Range(minSpawnPos.x, maxSpawnPos.x), UnityEngine.Random.Range(minSpawnPos.y, maxSpawnPos.y)), Quaternion.identity);
         }
+        else if (name == "")
+        {
+            //print("policia detectada");
+            go = Instantiate(viewersPrefab[UnityEngine.Random.Range(0, viewersPrefab.Length)], new Vector2(UnityEngine.Random.Range(minSpawnPos.x, maxSpawnPos.x), UnityEngine.Random.Range(minSpawnPos.y, maxSpawnPos.y)), Quaternion.identity);
+        }
         else
         {
             go = Instantiate(viewersPrefab[UnityEngine.Random.Range(0, viewersPrefab.Length)], new Vector2(UnityEngine.Random.Range(minSpawnPos.x, maxSpawnPos.x), UnityEngine.Random.Range(minSpawnPos.y, maxSpawnPos.y)), Quaternion.identity);

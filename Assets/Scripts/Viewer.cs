@@ -16,6 +16,8 @@ public class Viewer : MonoBehaviour
     public int maxLife = 100;
     public int curLife;
 
+    public int minDamage, maxDamage;
+
     void Start()
     {
 
@@ -25,25 +27,38 @@ public class Viewer : MonoBehaviour
     {
         if (col.tag == "Bullet")
         {
-            //print("Atingido");
-            TakeDamage(50);
-            Destroy(col.gameObject);
+            Bullet colBullet = col.GetComponent<Bullet>();
+            int randomDamage = Random.Range(colBullet.minDamage, colBullet.maxDamage);
+            if (BattleManager.Instance.currentBattleState != BattleManager.BattleState.Finished)
+            {
+                TakeDamage(randomDamage);
+                Destroy(col.gameObject);
+            }
         }
     }
 
     public void TakeDamage(int damageToTake)
     {
-        curLife -= damageToTake;
+        int randomChance = Random.Range(0, 100);
+
+        if(randomChance <= 75)
+        {
+            curLife -= damageToTake;
+        }
+        else
+        {
+            print("Errou");
+        }
+
+        
         if(curLife <= 0)
         {
             int playerIndex = Manager.Instance.currentViewersNames.IndexOf(nameText.text);
             int playersCount = Manager.Instance.currentViewersNames.Count;
-
-            //deleta da lista antes da checagem, caso contrario checagem não iniciará
+            
             Manager.Instance.currentViewersNames.RemoveAt(playerIndex);
             Manager.Instance.currentViewersObjects.RemoveAt(playerIndex);
-
-            //checagem se acabou batalha
+            
             if ((playersCount - 1) <= 1)
             {
                 BattleManager.Instance.EndBattle();
@@ -87,6 +102,8 @@ public class Viewer : MonoBehaviour
 
             Transform bullet = Instantiate(bulletPrefab, transform.position + instantiatePos, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().AddForce(shootPos * bulletSpeed);
+            bullet.GetComponent<Bullet>().minDamage = minDamage;
+            bullet.GetComponent<Bullet>().maxDamage = maxDamage;
             yield return new WaitForSeconds(bulletDelay);
         }
         
