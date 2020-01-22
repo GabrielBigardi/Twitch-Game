@@ -147,6 +147,44 @@ public class TwitchChat : MonoBehaviour
                             SendChat("@" + chatName + "parabéns viu seu cocô");
                             break;
 
+                        case "!move":
+                            var pos = splitted[1].ToLower();
+                            if (BattleManager.Instance.currentBattleState == BattleManager.BattleState.Started)
+                            {
+                                GameObject viewerObject = Manager.Instance.GetViewerGameObject(chatName.ToLower());
+                                if(pos == "p1")
+                                {
+                                    viewerObject.GetComponent<Viewer>().movePos = new Vector2(-6f, 3.998f);
+                                    viewerObject.GetComponent<Viewer>().isMoving = true;
+                                }
+
+                                if (pos == "p2")
+                                {
+                                    viewerObject.GetComponent<Viewer>().movePos = new Vector2(6f, 3.998f);
+                                    viewerObject.GetComponent<Viewer>().isMoving = true;
+                                }
+
+                                if (pos == "p3")
+                                {
+                                    viewerObject.GetComponent<Viewer>().movePos = new Vector2(0f, 1.998f);
+                                    viewerObject.GetComponent<Viewer>().isMoving = true;
+                                }
+
+                                if (pos == "p4")
+                                {
+                                    viewerObject.GetComponent<Viewer>().movePos = new Vector2(-6f, 0.002f);
+                                    viewerObject.GetComponent<Viewer>().isMoving = true;
+                                }
+
+                                if (pos == "p5")
+                                {
+                                    viewerObject.GetComponent<Viewer>().movePos = new Vector2(6f, -0.002f);
+                                    viewerObject.GetComponent<Viewer>().isMoving = true;
+                                }
+
+                            }
+                                break;
+
                         case "!target":
 
                             var target = splitted[1].ToLower();
@@ -177,7 +215,7 @@ public class TwitchChat : MonoBehaviour
                             }
 
 
-                            //===== Função pra atacar os mano ======
+                            //===== Função pra atacar os outros ======
                             var chatNameGameObject = Manager.Instance.GetViewerGameObject(chatName);
                             var targetGameObject = Manager.Instance.GetViewerGameObject(target);
 

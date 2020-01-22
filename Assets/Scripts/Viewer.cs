@@ -18,9 +18,51 @@ public class Viewer : MonoBehaviour
 
     public int minDamage, maxDamage;
 
+    public Vector2 movePos;
+    public bool isMoving = false;
+    public float moveSpeed;
+
+    Animator anim;
+    SpriteRenderer spr;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
+        spr = GetComponent<SpriteRenderer>();
+    }
 
+    void Update()
+    {
+        
+        if (isMoving)
+        {
+            print(Vector2.Distance(transform.position, movePos));
+
+            if (Vector2.Distance(transform.position, movePos) >= 0.025f)
+            {
+                Vector3 distance = movePos - (Vector2)transform.position;
+                Vector3 mov = distance.normalized;
+
+                if(distance.x < 0)
+                {
+                    spr.flipX = true;
+                }else if (distance.x > 0)
+                {
+                    spr.flipX = false;
+                }
+
+                transform.position += mov * moveSpeed * Time.deltaTime;
+
+                anim.SetBool("Walk", true);
+
+            }
+            else
+            {
+                anim.SetBool("Walk", false);
+                isMoving = false;
+            }
+
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -99,6 +141,14 @@ public class Viewer : MonoBehaviour
             Vector2 distance = target.position - transform.position;
             Vector2 shootPos = distance.normalized;
             Vector3 instantiatePos = new Vector3(shootPos.x * 0.4f, shootPos.y * 0.4f, 0f);
+
+            if(distance.x < 0f)
+            {
+                spr.flipX = true;
+            }else if (distance.x > 0f)
+            {
+                spr.flipX = false;
+            }
 
             Transform bullet = Instantiate(bulletPrefab, transform.position + instantiatePos, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().AddForce(shootPos * bulletSpeed);

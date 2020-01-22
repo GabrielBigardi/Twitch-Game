@@ -44,12 +44,7 @@ public class ConfigurationManager : MonoBehaviour
         if (userInput.text != "")
             PlayerPrefs.SetString("Twitch_Username", userInput.text.ToLower());
 
-        int buildScene = SceneManager.GetActiveScene().buildIndex;
-
-        if (SceneManager.sceneCount >= buildScene)
-            SceneManager.LoadScene(buildScene + 1);
-        else
-            print("mermão num tem essa cena n");
+        SceneManager.LoadScene(2);
     }
 
     public void ResetAll()
